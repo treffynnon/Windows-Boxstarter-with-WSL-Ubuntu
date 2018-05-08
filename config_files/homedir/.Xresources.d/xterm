@@ -1,0 +1,50 @@
+!===============
+! XTerm
+!===============
+
+XTerm*termName: xterm-256color
+
+! Fonts
+XTerm*faceName: Hack:size=10:antialias=true
+! If needed XTerm*boldFont: Hack-Bold
+! from 0.9 to 1.5
+XTerm*scaleHeight: 1.0
+
+! Options
+XTerm*locale: true
+XTerm*saveLines: 9000
+XTerm*bellIsUrgent: true
+XTerm*scrollBar: false
+XTerm*scrollBar.width: 8
+
+! Mouse pointer
+XTerm*pointerColor: #a39e9b
+XTerm*pointerColorBackground: #776e71
+XTerm*cursorColor: #06b6ef
+XTerm*cursorBlink: false
+
+
+!===============
+! UXTerm
+!===============
+
+UXTerm*termName: xterm-256color
+
+! Fonts
+UXTerm*faceName: Hack:size=10:antialias=true
+! If needed XTerm*boldFont: Hack-Bold
+! from 0.9 to 1.5
+UXTerm*scaleHeight: 1.0
+
+! Options
+UXTerm*locale: true
+UXTerm*saveLines: 9000
+UXTerm*bellIsUrgent: true
+UXTerm*scrollBar: false
+UXTerm*scrollBar.width: 8
+
+! Mouse pointer
+UXTerm*pointerColor: #a39e9b
+UXTerm*pointerColorBackground: #776e71
+UXTerm*cursorColor: #06b6ef
+UXTerm*cursorBlink: false
