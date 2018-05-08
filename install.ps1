@@ -119,6 +119,12 @@ code --install-extension christian-kohler.path-intellisense
 code --install-extension robertohuertasm.vscode-icons
 code --install-extension streetsidesoftware.code-spell-checker
 ### change lang to GB in config with "cSpell.language": "en-GB"
+### uncomment to install
+### node
+# code --install-extension eg2.vscode-npm-script
+# code --install-extension dbaeumer.vscode-eslint
+# code --install-extension christian-kohler.npm-intellisense
+# code --install-extension eg2.tslint
 
 
 #--- Git ---
