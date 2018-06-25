@@ -20,8 +20,23 @@ sudo apt-get upgrade -y
 sudo apt-get install -y \
   wget curl tmux rsync \
   vim xsel dos2unix git colordiff \
-	bzip2 coreutils linux-tools-common build-essential \
-	fonts-hack-ttf fonts-ubuntu-font-family-console
+  bzip2 coreutils linux-tools-common build-essential \
+  fonts-hack-ttf fonts-ubuntu-font-family-console \
+  parallel htop grc git
+
+## Stop the GNU parallel citation nag notice
+echo ">> Silencing GNU Parallel nag notice"
+mkdir -p ~/.parallel
+touch ~/.parallel/will-cite
+
+## Install better dircolors for the command line
+if [ ! -d ~/.dircolors/nord-dircolors-develop ]; then
+    echo ">> Fetching and installing better dircolors"
+    wget --show-progress -O /tmp/nord-dircolors.zip "https://github.com/arcticicestudio/nord-dircolors/archive/develop.zip"
+    mkdir -p ~/.dircolors
+    unzip -d ~/.dircolors /tmp/nord-dircolors.zip
+fi
+
 
 # vim setup
 ## vim8 for Ubuntu 16.04
@@ -72,8 +87,8 @@ exclude_extensions=$(join , ${executable_extensions_list[@]})
 
 find "$WINHOME/Desktop" "$WINHOME/Documents" "$WINHOME/Downloads" "$WINHOME/Pictures" \
     \( $ignored_directories \) -prune -o \
-	-type f -regextype egrep -not -regex ".*\.($exclude_extensions)\$" \
-	-execdir chmod 0664 '{}' \+
+    -type f -regextype egrep -not -regex ".*\.($exclude_extensions)\$" \
+    -execdir chmod 0664 '{}' \+
 
 ## install the custom bashrc file from this repo
 echo ">> Installing into .bashrc file"
