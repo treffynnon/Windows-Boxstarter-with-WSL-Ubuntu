@@ -151,6 +151,10 @@ if(Test-Path $wsl_gen_short) {
     Invoke-Item $wsl_gen_short
 }
 
+## Configure wsltty
+Copy-Item 'config_files\wsltty\paraiso_dark.mintty' -Destination "$env:APPDATA\wsltty\themes"
+Copy-Item 'config_files\wsltty\config' -Destination "$env:APPDATA\wsltty\config"
+
 # Setup weasel-pageant
 $url = 'https://github.com/vuori/weasel-pageant/releases/download/v1.1/weasel-pageant-1.1.zip'
 $archive = 'C:\tools\weasel-pageant-1-1.zip'
