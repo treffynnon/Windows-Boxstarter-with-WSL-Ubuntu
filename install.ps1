@@ -152,8 +152,8 @@ if(Test-Path $wsl_gen_short) {
 }
 
 ## Configure wsltty
-Copy-Item 'config_files\wsltty\paraiso_dark.mintty' -Destination "$env:APPDATA\wsltty\themes"
-Copy-Item 'config_files\wsltty\config' -Destination "$env:APPDATA\wsltty\config"
+Copy-Item '.\config_files\wsltty\paraiso_dark.mintty' -Destination "$env:APPDATA\wsltty\themes"
+Copy-Item '.\config_files\wsltty\config' -Destination "$env:APPDATA\wsltty\config"
 
 # Setup weasel-pageant
 $url = 'https://github.com/vuori/weasel-pageant/releases/download/v1.1/weasel-pageant-1.1.zip'
@@ -353,6 +353,36 @@ Set-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\
 # Natural mouse wheel scroll FlipFlopWheel = 1 
 # Default mouse wheel scroll FlipFlopWheel = 0 
 Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Enum\HID\*\*\Device` Parameters FlipFlopWheel -EA 0 | ForEach-Object { Set-ItemProperty $_.PSPath FlipFlopWheel 1 }
+
+#--- Ad blocking with hosts file ---
+$hfile = "$env:windir\System32\drivers\etc\hosts"
+
+function Block-Ad {
+  Param ($domain)
+  if (!(Select-String -Path "$hfile" -Pattern "$domain" -SimpleMatch -Quiet)) {
+    # Doesn't already exist so lets add it
+    $out = ''
+    if ($domain -like '* *') {
+      # add as-is because it's a ip and domain pair
+      $out = $domain
+    } else {
+      # route to 0.0.0.0
+      $out = "0.0.0.0    $domain"
+    }
+    "$out" | Add-Content -PassThru "$hfile"
+    Return 0
+  }
+  Return -1
+}
+
+Block-Ad 'pubads.g.doubleclick.net'
+Block-Ad 'securepubads.g.doubleclick.net'
+Block-Ad 'www.googletagservices.com'
+Block-Ad 'gads.pubmatic.com'
+Block-Ad 'ads.pubmatic.com'
+Block-Ad 'spclient.wg.spotify.com'
+
+ipconfig /flushdns
 
 #--- Restore Temporary Settings ---
 Enable-UAC
