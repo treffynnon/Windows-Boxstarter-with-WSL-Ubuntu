@@ -45,7 +45,9 @@ git clone https://github.com/editorconfig/editorconfig-vim.git
 # configure tmux
 ## install plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-echo "run '~/.tmux/plugins/tpm/tpm'" >> ~/.tmux.conf
+
+## Use tmux config from the windows wsl_setup dir
+ln -s "$WINHOME/wsl_setup/config_files/homedir/.tmux.conf" ~/.tmux.conf
 tmux source ~/.tmux.conf
 
 # Set Linux permissions on user directories (essentially removing executable from most files)
@@ -72,3 +74,17 @@ find "$WINHOME/Desktop" "$WINHOME/Documents" "$WINHOME/Downloads" "$WINHOME/Pict
     \( $ignored_directories \) -prune -o \
 	-type f -regextype egrep -not -regex ".*\.($exclude_extensions)\$" \
 	-execdir chmod 0664 '{}' \+
+
+## install the custom bashrc file from this repo
+echo ">> Installing into .bashrc file"
+PREVINSTALLED=$(grep -l '# wsl_setup-bashrc' ~/.bashrc)
+SCRIPTDIR="$WINHOME/wsl_setup/config_files/homedir"
+if [ -n "$PREVINSTALLED" ]; then
+    sed -i -r -z "s@(# wsl_setup-bashrc\n)(.*)(\n# end-wsl_setup-bashrc)@\1source '${SCRIPTDIR}/.bashrc_custom'\3@" ~/.bashrc
+else
+    printf '\n%s\n%s\n%s\n\n' \
+           '# wsl_setup-bashrc' \
+           "source '$SCRIPTDIR/.bashrc_custom'" \
+           '# end-wsl_setup-bashrc' \
+        >> ~/.bashrc
+fi

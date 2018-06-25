@@ -5,7 +5,11 @@ function source_d_files() {
     done
 }
 
+export WINUSER=$(cmd.exe /C echo %USERNAME% | tr -d "\r")
+export WINHOME="/mnt/c/Users/$WINUSER"
 export WSL_BASEPATH="$WINHOME/wsl_setup"
-source_d_files "$WSL_BASEPATH/.bashrc.d"
+
+source_d_files "$WSL_BASEPATH/config_files/homedir/.bashrc.d"
+xrdb -merge "$WSL_BASEPATH/config_files/homedir/.Xresources"
 
 cd "$WINHOME"
