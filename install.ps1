@@ -105,6 +105,7 @@ choco install firefox -y
 choco install docker-for-windows -y
 choco install cmder -y
 choco install putty -y # installing because we want the pageant ssh agent4
+choco install puretext -y # paste as plain text with Win + V
 
 #--- Visual Studio Code
 choco install visualstudiocode -y
